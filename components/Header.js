@@ -60,7 +60,7 @@ function Header ({ placeholder }) {
 				<input
 					value={searchInput}
 					onChange={(e) => setSearchInput(e.target.value)}
-					className="flex-grow pl-5 bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400"
+					className="flex-grow pl-5 bg-transparent outline-none text-sm placeholder-gray-500"
 					type="text"
 					placeholder={placeholder || 'Start your search'}
 				/>
@@ -70,7 +70,7 @@ function Header ({ placeholder }) {
 
 			{/* right */}
 			<div className="flex items-center space-x-4 justify-end text-gray-500">
-				<p className="hidden md:inline cursor-pointer">Become a host</p>
+				<p className="hidden md:inline cursor-pointer">Become a Host</p>
 				<GlobeAltIcon className="h-6 cursor-pointer" />
 
 				<Menu as="div" className="relative inline-block text-left">

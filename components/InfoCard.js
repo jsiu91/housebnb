@@ -16,7 +16,7 @@ function InfoCard ({ img, location, title, description, star, price, total }) {
 			</div>
 			<div className="flex flex-col flex-grow pl-5">
 				<div className="flex justify-between">
-					<p>{location}</p>
+					<p className="text-gray-500">{location}</p>
 					<HeartIcon className="h-7 cursor-pointer" />
 				</div>
 
@@ -34,7 +34,7 @@ function InfoCard ({ img, location, title, description, star, price, total }) {
 
 					<div>
 						<p className="text-lg lg:text-2xl font-semibold pb-2">{price}</p>
-						<p className="text-right font-extralight">{total}</p>
+						<p className="text-right font-extralight underline">{total}</p>
 					</div>
 				</div>
 			</div>
