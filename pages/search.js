@@ -16,13 +16,17 @@ function Search ({ searchResults }) {
 		<div>
 			<Header placeholder={`${location} | ${range} | ${numberGuests} guests`} />
 
+			{/* Search Queries */}
 			<main className="flex">
 				<section className="flex-grow pt-14 px-6">
 					<p className="text-xs">
-						300+ stays - {range} -for {numberGuests} guests
+						300+ stays - {range} - for {numberGuests} guests
 					</p>
+
+					{/* Location */}
 					<h1 className="text-3xl font-semibold mt-2 mb-6">Stays in {location}</h1>
 
+					{/* Category Buttons */}
 					<div className="hidden lg:inline-flex mb-5 space-x-3 text-gray-800 whitespace-nowrap">
 						<p className="button">Cancellation Flexibility</p>
 						<p className="button">Type of Place</p>
@@ -31,6 +35,7 @@ function Search ({ searchResults }) {
 						<p className="button">More filters</p>
 					</div>
 
+					{/* Info Cards */}
 					<div className="flex flex-col">
 						{searchResults.map(
 							({ img, location, title, description, star, price, total }) => (
@@ -43,12 +48,14 @@ function Search ({ searchResults }) {
 									star={star}
 									price={price}
 									total={total}
+									range={range}
 								/>
 							)
 						)}
 					</div>
 				</section>
 
+				{/* MapBox Map */}
 				<section className="hidden xl:inline-flex xl:min-w-[600px]">
 					<Map searchResults={searchResults} />
 				</section>

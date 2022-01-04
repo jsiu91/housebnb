@@ -2,7 +2,7 @@ import { useState } from 'react';
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import Image from 'next/image';
 import { StarIcon } from '@heroicons/react/solid';
-import { getCenter, isPointNearLine } from 'geolib';
+import { getCenter } from 'geolib';
 
 function Map ({ searchResults }) {
 	const [ selectedLocation, setSelectedLocation ] = useState({});

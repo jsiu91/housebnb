@@ -1,10 +1,32 @@
 import Image from 'next/image';
 import { HeartIcon } from '@heroicons/react/outline';
 import { StarIcon } from '@heroicons/react/solid';
+import { addToBooking } from '../slices/bookingSlice';
+import { useDispatch } from 'react-redux';
 
-function InfoCard ({ img, location, title, description, star, price, total }) {
+function InfoCard ({ img, location, title, description, star, price, total, range }) {
+	const dispatch = useDispatch();
+
+	const addItemtoBooking = () => {
+		const room = {
+			img,
+			location,
+			title,
+			description,
+			star,
+			price,
+			total,
+			range,
+		};
+
+		// Sending the room as action to the REDUX store... the booking slice
+		dispatch(addToBooking(room));
+		console.log(range);
+		console.log(room.range);
+	};
+
 	return (
-		<div className="flex py-7 px-2 pr-4 border-b cursor-pointer hover:opacity-80 hover:shadow-lg transition duration-200 ease-out first:border-t">
+		<div className="flex py-7 px-2 pr-4 border-b hover:opacity-80 hover:shadow-lg transition duration-200 ease-out first:border-t">
 			<div className="relative h-24 w-40 md:h-52 md:w-80 flex-shrink-0 ">
 				<Image
 					src={img}
@@ -35,6 +57,13 @@ function InfoCard ({ img, location, title, description, star, price, total }) {
 					<div>
 						<p className="text-lg lg:text-2xl font-semibold pb-2">{price}</p>
 						<p className="text-right font-extralight underline">{total}</p>
+
+						<button
+							className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-full cursor-pointer hover:bg-blue-900 hover:shadow-lg active:scale-95 border border-slate-300 active:bg-blue-700 transition transform duration-100 ease-out"
+							onClick={addItemtoBooking}
+						>
+							Add Booking
+						</button>
 					</div>
 				</div>
 			</div>

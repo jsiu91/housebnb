@@ -1,21 +1,27 @@
 import { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { GlobeAltIcon, MenuIcon, UserCircleIcon, UsersIcon, HomeIcon, SearchIcon } from '@heroicons/react/solid';
+import Image from 'next/image';
+import { signOut, useSession } from 'next-auth/react';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRangePicker } from 'react-date-range';
 import { useRouter } from 'next/dist/client/router';
+import { useSelector } from 'react-redux';
+import { selectItems } from '../slices/bookingSlice';
 
 function classNames (...classes) {
 	return classes.filter(Boolean).join(' ');
 }
 
-function Header ({ placeholder }) {
+function Header (props) {
 	const [ searchInput, setSearchInput ] = useState('');
 	const [ startDate, setStartDate ] = useState(new Date());
 	const [ endDate, setEndDate ] = useState(new Date());
 	const [ numberGuests, setNumberGuests ] = useState(1);
 	const router = useRouter();
+	const items = useSelector(selectItems);
+	const { data: session } = useSession();
 
 	const selectionRange = {
 		startDate: startDate,
@@ -46,7 +52,7 @@ function Header ({ placeholder }) {
 
 	return (
 		<header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-5 md:px-10">
-			{/* left */}
+			{/* left - Logo */}
 			<div
 				className="relative flex items-center h-10 cursor-pointer my-auto"
 				onClick={() => router.push('/')}
@@ -62,25 +68,39 @@ function Header ({ placeholder }) {
 					onChange={(e) => setSearchInput(e.target.value)}
 					className="flex-grow pl-5 bg-transparent outline-none text-sm placeholder-gray-500"
 					type="text"
-					placeholder={placeholder || 'Start your search'}
+					placeholder={props.placeholder || 'Start your search'}
 				/>
 				<SearchIcon className="hidden md:inline h-8 bg-blue-500 text-white rounded-full p-2 cursor-pointer md:mx-2
                 " />
 			</div>
 
-			{/* right */}
+			{/* right - User */}
 			<div className="flex items-center space-x-4 justify-end text-gray-500">
-				<p className="hidden md:inline cursor-pointer">Become a Host</p>
-				<GlobeAltIcon className="h-6 cursor-pointer" />
-
+				<p className="hidden lg:inline p-3 cursor-pointer rounded-full hover:bg-gray-100 font-bold">
+					Become a Host
+				</p>
+				<p className="p-3 cursor-pointer rounded-full hover:bg-gray-100 font-bold">
+					<GlobeAltIcon className="h-6" />
+				</p>
+				{session && `Hello, ${session.user.name}`}
 				<Menu as="div" className="relative inline-block text-left">
 					<div>
-						<Menu.Button className="flex items-center space-x-2 border-2 p-2 rounded-full cursor-pointer">
-							<MenuIcon className="h-6" />
-							<UserCircleIcon className="h-6" />
+						<Menu.Button className="flex border-2 p-2 rounded-full cursor-pointer hover:shadow-md">
+							<MenuIcon className="h-7 mr-2" />
+							{session ? (
+								<Image
+									src={session.user.image}
+									width={30}
+									height={30}
+									className="relative rounded-full"
+								/>
+							) : (
+								<UserCircleIcon className="h-7" />
+							)}
 						</Menu.Button>
 					</div>
 
+					{/* Menu Dropdown */}
 					<Transition
 						as={Fragment}
 						enter="transition ease-out duration-100"
@@ -92,37 +112,95 @@ function Header ({ placeholder }) {
 					>
 						<Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
 							<div className="py-1">
-								<Menu.Item>
-									{({ active }) => (
-										<a
-											href="#"
-											className={classNames(
-												active
-													? 'bg-gray-100 text-gray-900'
-													: 'text-gray-700',
-												'font-bold block px-4 py-2 text-sm'
+								{!session && (
+									<div>
+										{/* Login */}
+										<Menu.Item>
+											{({ active }) => (
+												<a
+													onClick={() =>
+														router.push(
+															'/login'
+														)}
+													className={classNames(
+														active
+															? 'bg-gray-100 text-gray-900'
+															: 'text-gray-700',
+														'font-bold block px-4 py-2 text-sm cursor-pointer'
+													)}
+												>
+													Log in
+												</a>
 											)}
-										>
-											Log in
-										</a>
-									)}
-								</Menu.Item>
+										</Menu.Item>
+										{/* Sign Up */}
+										<Menu.Item>
+											{({ active }) => (
+												<a
+													onClick={() =>
+														router.push(
+															'/signup'
+														)}
+													className={classNames(
+														active
+															? 'bg-gray-100 text-gray-900'
+															: 'text-gray-700',
+														'block px-4 py-2 text-sm cursor-pointer'
+													)}
+												>
+													Sign up
+												</a>
+											)}
+										</Menu.Item>
+									</div>
+								)}
 								<form method="POST" action="#">
-									<Menu.Item>
-										{({ active }) => (
-											<button
-												type="submit"
-												className={classNames(
-													active
-														? 'bg-gray-100 text-gray-900'
-														: 'text-gray-700',
-													'block w-full text-left px-4 py-2 text-sm'
+									{session && (
+										<div>
+											<Menu.Item>
+												{({ active }) => (
+													<a
+														onClick={() =>
+															router.push(
+																'/booking'
+															)}
+														className={classNames(
+															active
+																? 'bg-gray-100 text-gray-900'
+																: 'text-gray-700',
+															'block px-4 py-2 text-sm cursor-pointer'
+														)}
+													>
+														<span className="absolute right-5 h-5 w-5 bg-blue-500 text-center
+                                                        text-white font-bold rounded-full">
+															{
+																items.length
+															}
+														</span>
+														Bookings
+													</a>
 												)}
-											>
-												Sign out
-											</button>
-										)}
-									</Menu.Item>
+											</Menu.Item>
+											{/* Sign Out */}
+											<Menu.Item>
+												{({ active }) => (
+													<button
+														type="submit"
+														className={classNames(
+															active
+																? 'bg-gray-100 text-gray-900'
+																: 'text-gray-700',
+															'block w-full text-left px-4 py-2 text-sm cursor-pointer font-bold'
+														)}
+														onClick={() =>
+															signOut()}
+													>
+														Sign out
+													</button>
+												)}
+											</Menu.Item>
+										</div>
+									)}
 								</form>
 							</div>
 						</Menu.Items>
@@ -130,7 +208,7 @@ function Header ({ placeholder }) {
 				</Menu>
 			</div>
 
-			{/* search input & calendar range  */}
+			{/* Search input & calendar range  */}
 			{searchInput && (
 				<div className="flex flex-col col-span-3 mx-auto">
 					<DateRangePicker
@@ -147,14 +225,20 @@ function Header ({ placeholder }) {
 							onChange={(e) => setNumberGuests(e.target.value)}
 							type="number"
 							min={1}
-							className="w-12 pl-2 text-lg outline-none text-blue-500"
+							className="w-12 pl-3 text-lg outline-none text-blue-500 font-bold"
 						/>
 					</div>
 					<div className="flex">
-						<button className="flex-grow text-gray-500" onClick={resetInput}>
+						<button
+							className="flex-grow bg-gray-500 text-white rounded-full"
+							onClick={resetInput}
+						>
 							Cancel
 						</button>
-						<button onClick={search} className="flex-grow text-blue-500">
+						<button
+							onClick={search}
+							className="p-2 font-bold flex-grow bg-blue-500 rounded-full text-white"
+						>
 							Search
 						</button>
 					</div>
