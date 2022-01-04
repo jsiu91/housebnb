@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Router from 'next/router';
 
-function login ({ providers }) {
+function Login ({ providers }) {
 	// A custom validation function. This must return an object
 	// which keys are symmetrical to our values/initialValues
 
@@ -114,7 +114,15 @@ function login ({ providers }) {
 														'/',
 												})}
 										>
-											<Image src={'/facebook-logo.png'} width={25} height={25} objectFit="cover" />
+											<Image
+												src={
+													'/facebook-logo.png'
+												}
+												width={25}
+												height={25}
+												objectFit="cover"
+												alt="facebook-logo"
+											/>
 											Continue with Facebook
 										</button>
 									)}
@@ -129,7 +137,13 @@ function login ({ providers }) {
 														'/',
 												})}
 										>
-											<Image src={'/google-logo.png'} width={25} height={25} objectFit="cover" />
+											<Image
+												src={'/google-logo.png'}
+												width={25}
+												height={25}
+												objectFit="cover"
+												alt="google-logo"
+											/>
 											Continue with Google
 										</button>
 									)}
@@ -144,7 +158,13 @@ function login ({ providers }) {
 														'/',
 												})}
 										>
-											<Image src={'/apple-logo.png'} width={25} height={25} objectFit="cover" />
+											<Image
+												src={'/apple-logo.png'}
+												width={25}
+												height={25}
+												objectFit="cover"
+												alt="apple-logo"
+											/>
 											Continue with Apple
 										</button>
 									)}
@@ -159,7 +179,7 @@ function login ({ providers }) {
 	);
 }
 
-export default login;
+export default Login;
 
 export async function getServerSideProps () {
 	const providers = await getProviders();

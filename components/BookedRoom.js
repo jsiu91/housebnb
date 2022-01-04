@@ -6,7 +6,7 @@ function BookedRoom ({ img, location, title, description, star, price, total, ra
 	return (
 		<div className="grid grid-cols-5">
 			{/* Left */}
-			<Image src={img} height={200} width={200} objectFit="contain" />
+			<Image src={img} height={200} width={200} objectFit="contain" alt="room-image" />
 
 			{/* Middle */}
 			<div className="col-span-3 mx-5">

@@ -93,6 +93,7 @@ function Header (props) {
 									width={30}
 									height={30}
 									className="relative rounded-full"
+									alt="profile-picture"
 								/>
 							) : (
 								<UserCircleIcon className="h-7" />
