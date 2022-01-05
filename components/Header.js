@@ -155,54 +155,51 @@ function Header (props) {
 										</Menu.Item>
 									</div>
 								)}
-								<form method="POST" action="#">
-									{session && (
-										<div>
-											<Menu.Item>
-												{({ active }) => (
-													<a
-														onClick={() =>
-															router.push(
-																'/booking'
-															)}
-														className={classNames(
-															active
-																? 'bg-gray-100 text-gray-900'
-																: 'text-gray-700',
-															'block px-4 py-2 text-sm cursor-pointer'
+								{session && (
+									<div>
+										<Menu.Item>
+											{({ active }) => (
+												<a
+													onClick={() =>
+														router.push(
+															'/booking'
 														)}
-													>
-														<span className="absolute right-5 h-5 w-5 bg-blue-500 text-center
+													className={classNames(
+														active
+															? 'bg-gray-100 text-gray-900'
+															: 'text-gray-700',
+														'block px-4 py-2 text-sm cursor-pointer'
+													)}
+												>
+													<span className="absolute right-5 h-5 w-5 bg-blue-500 text-center
                                                         text-white font-bold rounded-full">
-															{
-																items.length
-															}
-														</span>
-														Bookings
-													</a>
-												)}
-											</Menu.Item>
-											{/* Sign Out */}
-											<Menu.Item>
-												{({ active }) => (
-													<button
-														type="submit"
-														className={classNames(
-															active
-																? 'bg-gray-100 text-gray-900'
-																: 'text-gray-700',
-															'block w-full text-left px-4 py-2 text-sm cursor-pointer font-bold'
-														)}
-														onClick={() =>
-															signOut()}
-													>
-														Sign out
-													</button>
-												)}
-											</Menu.Item>
-										</div>
-									)}
-								</form>
+														{
+															items.length
+														}
+													</span>
+													Bookings
+												</a>
+											)}
+										</Menu.Item>
+										{/* Sign Out */}
+										<Menu.Item>
+											{({ active }) => (
+												<button
+													className={classNames(
+														active
+															? 'bg-gray-100 text-gray-900'
+															: 'text-gray-700',
+														'block w-full text-left px-4 py-2 text-sm cursor-pointer font-bold'
+													)}
+													onClick={() =>
+														signOut()}
+												>
+													Sign out
+												</button>
+											)}
+										</Menu.Item>
+									</div>
+								)}
 							</div>
 						</Menu.Items>
 					</Transition>
