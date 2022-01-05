@@ -1,8 +1,17 @@
 import { StarIcon } from '@heroicons/react/solid';
+import { useDispatch } from 'react-redux';
 import Image from 'next/image';
 import React from 'react';
+import { removeFromBooking } from '../slices/bookingSlice';
 
 function BookedRoom ({ img, location, title, description, star, price, total, range }) {
+	const dispatch = useDispatch();
+
+	const removeItemFromBooking = () => {
+		// Remove item from redux store
+		dispatch(removeFromBooking({ title }));
+	};
+
 	return (
 		<div className="grid grid-cols-5">
 			{/* Left */}
@@ -23,8 +32,13 @@ function BookedRoom ({ img, location, title, description, star, price, total, ra
 			{/* Right */}
 			<div className="flex flex-col space-y-3 my-auto justify-self-end">
 				<p className="text-lg lg:text-2xl font-semibold align-text-bottom">{price}</p>
-				<p className="text-right pr-5 font-extralight underline">{total}</p>
-				<button className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-full cursor-pointer hover:bg-blue-900 hover:shadow-lg active:scale-95 border border-slate-300 active:bg-blue-700 transition transform duration-100 ease-out">
+
+				<p className="text-right pr-5 font-extralight underline"> {total}</p>
+
+				<button
+					className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-full cursor-pointer hover:bg-blue-900 hover:shadow-lg active:scale-95 border border-slate-300 active:bg-blue-700 transition transform duration-100 ease-out"
+					onClick={removeItemFromBooking}
+				>
 					Cancel Booking
 				</button>
 			</div>

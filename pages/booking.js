@@ -3,10 +3,13 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import BookedRoom from '../components/BookedRoom';
 import { useSelector } from 'react-redux';
-import { selectItems } from '../slices/bookingSlice';
+import { selectItems, selectTotal } from '../slices/bookingSlice';
+import { useSession } from 'next-auth/react';
 
 function Checkout () {
 	const items = useSelector(selectItems);
+	const total = useSelector(selectTotal);
+	const { data: session } = useSession();
 
 	return (
 		<div>
@@ -47,9 +50,30 @@ function Checkout () {
 					)}
 				</div>
 				{/* Right */}
-				<div />
-			</main>
+				<div className="flex flex-col bg-white p-10">
+					{items.length > 0 && (
+						<div>
+							<h2 className="whitespace-nowrap">
+								Subtotal ({items.length} items): {' '}
+								<span className="font-bold">
+									{new Intl.NumberFormat('en-US', {
+										style: 'currency',
+										currency: 'GBP',
+									}).format(total)}
+								</span>
+							</h2>
 
+							<button className={`button mt-2 bg-blue-500 text-white`}>
+								{!session ? (
+									'Sign in to checkout'
+								) : (
+									'Proceed to checkout'
+								)}
+							</button>
+						</div>
+					)}
+				</div>
+			</main>
 			<Footer />
 		</div>
 	);

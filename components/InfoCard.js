@@ -21,8 +21,6 @@ function InfoCard ({ img, location, title, description, star, price, total, rang
 
 		// Sending the room as action to the REDUX store... the booking slice
 		dispatch(addToBooking(room));
-		console.log(range);
-		console.log(room.range);
 	};
 
 	return (
