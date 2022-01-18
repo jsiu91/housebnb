@@ -29,10 +29,10 @@ function Footer () {
 			</div>
 			<div className="space-y-4 text-xs text-gray-800">
 				<h5 className="font-bold">SUPPORT</h5>
-				<p>Alright</p>
-				<p>You</p>
-				<p>Can Add</p>
-				<p>More</p>
+				<p>These</p>
+				<p>Links</p>
+				<p>Don&apost</p>
+				<p>Work</p>
 				<p>Cool tabs</p>
 			</div>
 		</div>

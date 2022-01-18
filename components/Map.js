@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import Image from 'next/image';
 import { StarIcon } from '@heroicons/react/solid';
 import { getCenter } from 'geolib';

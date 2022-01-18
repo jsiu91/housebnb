@@ -5,7 +5,7 @@ import Map from '../components/Map';
 import { format } from 'date-fns';
 import InfoCard from '../components/InfoCard';
 
-function Search ({ searchResults }) {
+function Search ({ searchResults, token }) {
 	const router = useRouter();
 	const { location, startDate, endDate, numberGuests } = router.query;
 	const formattedStartDate = format(new Date(startDate), 'MMM d');
@@ -14,7 +14,7 @@ function Search ({ searchResults }) {
 
 	return (
 		<div>
-			<Header placeholder={`${location} | ${range} | ${numberGuests} guests`} />
+			<Header placeholder={`${location} | ${range} | ${numberGuests} guests`} token={token} />
 
 			{/* Search Queries */}
 			<main className="flex">
@@ -68,12 +68,13 @@ function Search ({ searchResults }) {
 
 export default Search;
 
-export async function getServerSideProps () {
+export async function getServerSideProps ({ req, res }) {
 	const searchResults = await fetch('https://links.papareact.com/isz').then((res) => res.json());
 
 	return {
 		props: {
 			searchResults,
+			token: req.cookies.token || null,
 		},
 	};
 }

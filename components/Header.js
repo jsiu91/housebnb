@@ -1,8 +1,9 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { GlobeAltIcon, MenuIcon, UserCircleIcon, UsersIcon, HomeIcon, SearchIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
 import { signOut, useSession } from 'next-auth/react';
+import jwt from 'jsonwebtoken';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRangePicker } from 'react-date-range';
@@ -22,6 +23,7 @@ function Header (props) {
 	const router = useRouter();
 	const items = useSelector(selectItems);
 	const { data: session } = useSession();
+	const user = jwt.decode(props.token, process.env.JWT_SECRET);
 
 	const selectionRange = {
 		startDate: startDate,
@@ -82,7 +84,8 @@ function Header (props) {
 				<p className="p-3 cursor-pointer rounded-full hover:bg-gray-100 font-bold">
 					<GlobeAltIcon className="h-6" />
 				</p>
-				{session && `Hello, ${session.user.name}`}
+				{(session && `Hello, ${session.user.name}`) ||
+					(user && `Hello, ${user.firstName} ${user.lastName}`)}
 				<Menu as="div" className="relative inline-block text-left">
 					<div>
 						<Menu.Button className="flex border-2 p-2 rounded-full cursor-pointer hover:shadow-md">
@@ -113,7 +116,7 @@ function Header (props) {
 					>
 						<Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
 							<div className="py-1">
-								{!session && (
+								{!(session || user) && (
 									<div>
 										{/* Login */}
 										<Menu.Item>
@@ -155,7 +158,7 @@ function Header (props) {
 										</Menu.Item>
 									</div>
 								)}
-								{session && (
+								{(session || user) && (
 									<div>
 										<Menu.Item>
 											{({ active }) => (
@@ -191,8 +194,26 @@ function Header (props) {
 															: 'text-gray-700',
 														'block w-full text-left px-4 py-2 text-sm cursor-pointer font-bold'
 													)}
-													onClick={() =>
-														signOut()}
+													onClick={async () =>
+														session
+															? signOut()
+															: await fetch(
+																	'api/logout',
+																	{
+																		method:
+																			'POST',
+																		headers: {
+																			'Content-Type':
+																				'application/json',
+																		},
+																		body: JSON.stringify(
+																			{}
+																		),
+																	} &&
+																		router.push(
+																			'/'
+																		)
+																)}
 												>
 													Sign out
 												</button>

@@ -1,5 +1,3 @@
-import { useSession } from 'next-auth/react';
-import { useEffect } from 'react';
 import Head from 'next/head';
 import Banner from '../components/Banner';
 import Footer from '../components/Footer';
@@ -9,18 +7,7 @@ import MediumCard from '../components/MediumCard';
 import SmallCard from '../components/SmallCard';
 import styles from '../styles/Home.module.css';
 
-export default function Home ({ exploreData, cardsData }) {
-	const { data: session } = useSession();
-
-	useEffect(
-		() => {
-			if (session?.error === 'RefreshAccessTokenError') {
-				signIn();
-			}
-		},
-		[ session ]
-	);
-
+export default function Home ({ exploreData, cardsData, token }) {
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -28,13 +15,12 @@ export default function Home ({ exploreData, cardsData }) {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<Header />
+			<Header token={token} />
 			<Banner />
 
 			<main className="max-w-7xl mx-auto px-8 sm:px-16 shadow-lg">
 				<section className="pt-6">
 					<h2 className="text-4xl font-semibold pb-5">Explore Nearby</h2>
-
 					{/* Pull data from server - Server Side Rendering */}
 					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 						{exploreData.map(({ img, distance, location }) => (
@@ -71,7 +57,7 @@ export default function Home ({ exploreData, cardsData }) {
 	);
 }
 
-export async function getStaticProps () {
+export async function getServerSideProps ({ req, res }) {
 	const exploreData = await fetch('https://links.papareact.com/pyp').then((res) => res.json());
 
 	const cardsData = await fetch('https://links.papareact.com/zp1').then((res) => res.json());
@@ -80,6 +66,7 @@ export async function getStaticProps () {
 		props: {
 			exploreData,
 			cardsData,
+			token: req.cookies.token || null,
 		},
 	};
 }

@@ -1,8 +1,8 @@
 import { useFormik } from 'formik';
 import { getProviders, signIn } from 'next-auth/react';
-import Image from 'next/image';
 import HouseBnbApi from './api/api';
-import React from 'react';
+import Image from 'next/image';
+import React, { useState } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Router from 'next/router';
@@ -10,6 +10,7 @@ import Router from 'next/router';
 function Login ({ providers }) {
 	// A custom validation function. This must return an object
 	// which keys are symmetrical to our values/initialValues
+	const [ message, setMessage ] = useState('');
 
 	const validate = (values) => {
 		const errors = {};
@@ -30,9 +31,22 @@ function Login ({ providers }) {
 			password: '',
 		},
 		validate,
-		onSubmit: (values) => {
-			HouseBnbApi.login(values);
-			Router.push('/');
+		onSubmit: async (values) => {
+			try {
+				const token = await HouseBnbApi.login(values);
+				// cookie.set('token', token, { expires: 1 / 24 }); //Expires every hour
+				await fetch('api/login', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ token: token }),
+				});
+				Router.push('/');
+			} catch (error) {
+				setMessage('Login failed. Please enter the correct username and password.');
+				return { success: false, error };
+			}
 		},
 	});
 	return (
@@ -93,6 +107,8 @@ function Login ({ providers }) {
 							>
 								Login
 							</button>
+
+							<div className="error">{message}</div>
 						</form>
 
 						{/* List OAuth providers */}

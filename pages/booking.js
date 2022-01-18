@@ -6,14 +6,14 @@ import { useSelector } from 'react-redux';
 import { selectItems, selectTotal } from '../slices/bookingSlice';
 import { useSession } from 'next-auth/react';
 
-function Checkout () {
+function Checkout ({ token }) {
 	const items = useSelector(selectItems);
 	const total = useSelector(selectTotal);
 	const { data: session } = useSession();
 
 	return (
 		<div>
-			<Header />
+			<Header token={token} />
 			<main className="lg:flex max-w-screen-2xl mx-auto">
 				{/* Bookings */}
 				<div className="flex flex-col p-5 space-y-10 bg-white">
@@ -64,11 +64,7 @@ function Checkout () {
 							</h2>
 
 							<button className={`button mt-2 bg-blue-500 text-white`}>
-								{!session ? (
-									'Sign in to checkout'
-								) : (
-									'Proceed to checkout'
-								)}
+								Proceed to checkout
 							</button>
 						</div>
 					)}
@@ -80,3 +76,11 @@ function Checkout () {
 }
 
 export default Checkout;
+
+export async function getServerSideProps ({ req, res }) {
+	return {
+		props: {
+			token: req.cookies.token || null,
+		},
+	};
+}
