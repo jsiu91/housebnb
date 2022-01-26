@@ -46,7 +46,7 @@ const SignupForm = () => {
 		validate,
 		onSubmit: async (values) => {
 			const token = await HouseBnbApi.signup(values);
-			await fetch('api/login', {
+			await fetch('api/register', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
