@@ -3,9 +3,11 @@ import { HeartIcon } from '@heroicons/react/outline';
 import { StarIcon } from '@heroicons/react/solid';
 import { addToBooking } from '../slices/bookingSlice';
 import { useDispatch } from 'react-redux';
+import { useSession } from 'next-auth/react';
 
-function InfoCard ({ img, location, title, description, star, price, total, range }) {
+function InfoCard ({ img, location, title, description, star, price, total, range, token }) {
 	const dispatch = useDispatch();
+	const { data: session } = useSession();
 
 	const addItemtoBooking = () => {
 		const room = {
@@ -57,12 +59,16 @@ function InfoCard ({ img, location, title, description, star, price, total, rang
 						<p className="text-lg lg:text-2xl font-semibold pb-2">{price}</p>
 						<p className="text-right font-extralight underline">{total}</p>
 
-						<button
-							className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-full cursor-pointer hover:bg-blue-900 hover:shadow-lg active:scale-95 border border-slate-300 active:bg-blue-700 transition transform duration-100 ease-out"
-							onClick={addItemtoBooking}
-						>
-							Add Booking
-						</button>
+						{token || session ? (
+							<button
+								className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-full cursor-pointer hover:bg-blue-900 hover:shadow-lg active:scale-95 border border-slate-300 active:bg-blue-700 transition transform duration-100 ease-out"
+								onClick={addItemtoBooking}
+							>
+								Add Booking
+							</button>
+						) : (
+							<p className="mt-2 px-4 py-2">Login to Book</p>
+						)}
 					</div>
 				</div>
 			</div>

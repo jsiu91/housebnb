@@ -49,6 +49,7 @@ function Search ({ searchResults, token }) {
 									price={price}
 									total={total}
 									range={range}
+									token={token}
 								/>
 							)
 						)}

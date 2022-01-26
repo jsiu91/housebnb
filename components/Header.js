@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { GlobeAltIcon, MenuIcon, UserCircleIcon, UsersIcon, HomeIcon, SearchIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
@@ -72,8 +72,11 @@ function Header (props) {
 					type="text"
 					placeholder={props.placeholder || 'Start your search'}
 				/>
-				<SearchIcon className="hidden md:inline h-8 bg-blue-500 text-white rounded-full p-2 cursor-pointer md:mx-2
-                " />
+				<SearchIcon
+					className="hidden md:inline h-8 bg-blue-500 text-white rounded-full p-2 cursor-pointer md:mx-2
+                "
+					onClick={search}
+				/>
 			</div>
 
 			{/* right - User */}
