@@ -6,8 +6,11 @@ import { format } from 'date-fns';
 import InfoCard from '../components/InfoCard';
 
 function Search ({ searchResults, token }) {
+	// Next.js router
 	const router = useRouter();
 	const { location, startDate, endDate, numberGuests } = router.query;
+
+	// Calendar formatting for search placeholder
 	const formattedStartDate = format(new Date(startDate), 'MMM d');
 	const formattedEndDate = format(new Date(endDate), 'MMM d, yyyy');
 	const range = `${formattedStartDate} - ${formattedEndDate}`;

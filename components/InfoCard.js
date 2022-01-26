@@ -6,7 +6,9 @@ import { useDispatch } from 'react-redux';
 import { useSession } from 'next-auth/react';
 
 function InfoCard ({ img, location, title, description, star, price, total, range, token }) {
+	//Redux
 	const dispatch = useDispatch();
+	//Next.js Authentication
 	const { data: session } = useSession();
 
 	const addItemtoBooking = () => {

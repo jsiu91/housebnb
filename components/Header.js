@@ -11,35 +11,41 @@ import { useRouter } from 'next/dist/client/router';
 import { useSelector } from 'react-redux';
 import { selectItems } from '../slices/bookingSlice';
 
+//Helper for Dropdown Menu
 function classNames (...classes) {
 	return classes.filter(Boolean).join(' ');
 }
 
 function Header (props) {
+	//Calendar states
 	const [ searchInput, setSearchInput ] = useState('');
 	const [ startDate, setStartDate ] = useState(new Date());
 	const [ endDate, setEndDate ] = useState(new Date());
 	const [ numberGuests, setNumberGuests ] = useState(1);
+	//Next.js router
 	const router = useRouter();
+	//Redux items
 	const items = useSelector(selectItems);
+	//Next.js Authentication
 	const { data: session } = useSession();
 	const user = jwt.decode(props.token, process.env.JWT_SECRET);
 
+	//Calendar search input
 	const selectionRange = {
 		startDate: startDate,
 		endDate: endDate,
 		key: 'selection',
 	};
-
+	//Calendar search input
 	const handleSelect = (ranges) => {
 		setStartDate(ranges.selection.startDate);
 		setEndDate(ranges.selection.endDate);
 	};
-
+	//Cancel search
 	const resetInput = () => {
 		setSearchInput('');
 	};
-
+	//Search calendar input
 	const search = () => {
 		router.push({
 			pathname: '/search',
@@ -63,7 +69,7 @@ function Header (props) {
 				<p className="text-lg p-1 pt-2 font-bold text-blue-500 ">HouseBnb</p>
 			</div>
 
-			{/* middle - Search */}
+			{/* Middle - Search */}
 			<div className="flex items-center md:border-2 rounded-full py-2 md:shadow-sm">
 				<input
 					value={searchInput}
@@ -79,7 +85,7 @@ function Header (props) {
 				/>
 			</div>
 
-			{/* right - User */}
+			{/* Right - User */}
 			<div className="flex items-center space-x-4 justify-end text-gray-500">
 				<p className="hidden lg:inline p-3 cursor-pointer rounded-full hover:bg-gray-100 font-bold">
 					Become a Host
@@ -241,6 +247,7 @@ function Header (props) {
 					<div className="flex items-center border-b mb-4">
 						<h2 className="text-2xl flex-grow font-semibold">Number of Guests</h2>
 
+						{/* Number of guests */}
 						<UsersIcon className="h-5" />
 						<input
 							value={numberGuests}
@@ -251,12 +258,14 @@ function Header (props) {
 						/>
 					</div>
 					<div className="flex">
+						{/* Cancel */}
 						<button
 							className="flex-grow bg-gray-500 text-white rounded-full"
 							onClick={resetInput}
 						>
 							Cancel
 						</button>
+						{/* Search */}
 						<button
 							onClick={search}
 							className="p-2 font-bold flex-grow bg-blue-500 rounded-full text-white"
