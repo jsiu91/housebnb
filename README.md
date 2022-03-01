@@ -1,15 +1,15 @@
 <h1 align="center">Welcome to housebnb 👋</h1>
 <p>
-Full-Stack web application (Airbnb Clone) <br><br>
-Main Focus(Front-End) 
-    <ul>
-        <li>Responsive Web Design</li>
-        <li>Listings Location</li>
-        <li>MapBox Implementation(https://docs.mapbox.com/mapbox-gl-js/api/map/)</li>
-        <li>Oath</li>
-        <li>SSR</li>
-    <ul>
 </p>
+
+>Full-Stack web application (Airbnb Clone) <br><br>
+>Main Focus (Front-End): 
+>    Responsive Web Design
+>    Listings Location
+>    MapBox Implementation(https://docs.mapbox.com/mapbox-gl-js/api/map/)
+>    Oath
+>   SSR
+
 
 ### 🏠 [Homepage](https://housebnb.vercel.app/)
 
