@@ -1,34 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">Welcome to housebnb 👋</h1>
+<p>
+Full-Stack web application (Airbnb Clone)
+Main Focus(Front-End)
+    Responsive Web Design
+    Listings Location
+    [MapBox Implementation](https://docs.mapbox.com/mapbox-gl-js/api/map/)
+    Oath
+    SSR
 
-## Getting Started
+</p>
 
-First, run the development server:
+### 🏠 [Homepage](https://housebnb.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
+### ✨ [Demo](https://housebnb.vercel.app/)
+
+## Install
+
+```sh
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Install
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```sh
+npm install
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Usage
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```sh
+npm run start
+```
 
-## Learn More
+## Author
 
-To learn more about Next.js, take a look at the following resources:
+👤 **Jonathan Siu**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* Website: https://jsiu.vercel.app/
+* Github: [@jsiu91](https://github.com/jsiu91)
+* LinkedIn: [@jsiu91](https://linkedin.com/in/jsiu91)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Stack
 
-## Deploy on Vercel
+```sh
+ React – Node.js – Next.js – JavaScript – HTML – CSS – Tailwind.css – Express.js – PostgreSQL – Heroku – Vercel
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Show your support
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Give a ⭐️ if this project helped you!
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
