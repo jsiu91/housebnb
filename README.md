@@ -3,12 +3,12 @@
 </p>
 
 >Full-Stack web application (Airbnb Clone) <br><br>
->Main Focus (Front-End): 
->    Responsive Web Design
->    Listings Location
->    MapBox Implementation(https://docs.mapbox.com/mapbox-gl-js/api/map/)
->    Oath
->   SSR
+>Main Focus (Front-End):<br> 
+>    Responsive Web Design<br>
+>    Listings Location(https://www.npmjs.com/package/geolib)<br>
+>    MapBox Implementation(https://docs.mapbox.com/mapbox-gl-js/api/map/)<br>
+>    Oath<br>
+>   SSR<br>
 
 
 ### 🏠 [Homepage](https://housebnb.vercel.app/)
