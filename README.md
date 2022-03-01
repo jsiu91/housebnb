@@ -1,7 +1,7 @@
 <h1 align="center">Welcome to housebnb 👋</h1>
 <p>
-Full-Stack web application (Airbnb Clone) <br>
-Main Focus(Front-End) <br>
+Full-Stack web application (Airbnb Clone) <br><br>
+Main Focus(Front-End) 
     <ul>
         <li>Responsive Web Design</li>
         <li>Listings Location</li>
