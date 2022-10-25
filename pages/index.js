@@ -58,9 +58,9 @@ export default function Home ({ exploreData, cardsData, token }) {
 }
 
 export async function getServerSideProps ({ req, res }) {
-	const exploreData = await fetch('https://links.papareact.com/pyp').then((res) => res.json());
+	const exploreData = await fetch('https://www.jsonkeeper.com/b/4G1G').then((res) => res.json());
 
-	const cardsData = await fetch('https://links.papareact.com/zp1').then((res) => res.json());
+	const cardsData = await fetch('https://www.jsonkeeper.com/b/VHHT').then((res) => res.json());
 
 	return {
 		props: {

@@ -1,7 +1,15 @@
 module.exports = {
+	httpAgentOptions: {
+		keepAlive: false,
+	},
 	reactStrictMode: true,
 	mode: 'jit',
 	images: {
-		domains: [ 'links.papareact.com', 'lh3.googleusercontent.com', 'platform-lookaside.fbsbx.com' ],
+		domains: [
+			'jsonkeeper.com',
+			'links.papareact.com',
+			'lh3.googleusercontent.com',
+			'platform-lookaside.fbsbx.com',
+		],
 	},
 };
